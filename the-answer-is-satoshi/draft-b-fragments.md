@@ -2,78 +2,90 @@
 
 ## Structure
 
-First person. Undated, unordered scenes from a life. No chronology given. The reader assembles the timeline (or doesn't). Fragments span years, possibly decades. The last fragment is the genesis block, but the reader may not realize what they just read.
+First person. Dated fragments, but only two dates are real: October 31, 2008 (whitepaper to the mailing list) and January 3, 2009 (genesis block). All other dates are invented. Fragments are in chronological order. They span years, possibly decades.
 
-## The Fragments (rough, not necessarily in this order)
+No names. Not Chaum, not Back, not Dai, not Szabo, not Finney. The predecessors are "a man," "someone," "a paper I found." Generic, atmospheric. The story is not about the history of digital cash. It's about one person's interior life.
 
-### The Failure
-He reads about a company called DigiCash going bankrupt. A man named Chaum had the idea, needed a central server, and the company died. The narrator thinks about this for a long time. The idea was right. The architecture was wrong.
+The philosophical core is the Axiom of Resistance: the unprovable belief that a system can resist state control. "Governments are good at cutting off the heads of centrally controlled networks, but pure P2P networks seem to be holding their own." The protagonist holds this as an article of faith. It drives everything. He doesn't argue it. He builds for it.
 
-### The Paper on the Desk
-A printed paper. "Hashcash." He's read it many times. The margins are full of notes. Proof of work. It solves one problem cleanly. But it's not money. It's postage.
+The mood is monastic. A person living simply, thinking deeply, building quietly. Austrian economics not as ideology but as the water he swims in. Technology not as an end but as the only tool that can solve a political problem without requiring political power.
 
-### The Almost
-He reads something by someone (Szabo? Dai? unnamed?) that gets so close. Almost there. The narrator can see the gap. One missing piece. He thinks he might know what it is but isn't sure yet.
+## The Fragments
 
-### The Notebook
-He carries a notebook. Or a file on a computer. Diagrams that don't work yet. He crosses things out. Starts over. The problem is always the same: how do you prevent someone from spending the same coin twice without a trusted third party? The phrase "trusted third party" appears here like a recurring headache.
+### ~1990s: The Bookshelf
+He reads about money. Not finance, money. What it is. Why it exists. What happens when governments control it. A book argues that money doesn't need to be issued by a state. That competition between private currencies would produce better money than any central bank. He reads this chapter three times. The spine cracks. He puts the book down and thinks about it for months.
 
-### The Code
-He's writing software. It's ugly. He knows it's ugly. Functions are too long. Variable names aren't great. But it compiles, and it does what it's supposed to do. He's not a great programmer. He's a careful one.
+### ~Late 1990s: The Funeral
+A company tried to build digital cash. It needed a central server. The company went bankrupt. He reads about this the way you'd read an obituary for someone you never met but almost could have. The idea was right. The architecture was fatal. Anything with a head can be decapitated.
 
-### The Hardware
-He buys machines. More than a normal person would have. Puts them in a room. They hum. He does math: at this difficulty, with this hashrate, blocks should come every ten minutes. He'll be the only one mining. He's planned for that.
+### ~Early 2000s: The Papers
+He collects papers the way some people collect records. Printouts in a folder, or PDFs in a directory. Each one solves a piece of the problem. Proof of work. Timestamping. Distributed consensus. Each one stops short. He reads them over and over, writing in the margins. The gap is always the same: they all need someone to be trusted. A server. A mint. A coordinator. He hates this word. Trusted. It means vulnerable.
 
-### The Email
-He's composing something. He re-reads it. There's a line that's too warm, too human. He deletes it. Rewrites it flatter. He checks: did he use "colour" or "color"? Changes it. Checks again. The email is about a technical question someone asked. The person also wished him happy holidays. He doesn't respond to that part.
+### ~2003: The Axiom
+He has a conversation (or reads something, or just thinks it through alone, which is more likely) and arrives at a premise he can't prove but chooses to accept: that a sufficiently decentralized system can resist the state. Not because the state is weak, but because peer-to-peer networks have no throat to choke. This is not an argument. It's a starting point. An axiom. Everything he builds from here depends on it being true. He accepts this the way a geometer accepts that parallel lines don't meet. Not because it's obvious. Because the system he wants to build requires it.
 
-### The Name
-He needs a name. Not his name. A name for the project, or for himself, or both. He picks one. We don't hear what it is. He types it into a field somewhere. It feels strange, like wearing someone else's coat.
+### ~2005: The Notebook
+Diagrams that don't work. He crosses them out, starts over. The problem is always the same: how do you prevent someone from spending the same coin twice without someone in the middle keeping score? Every design he sketches either requires trust or doesn't scale. He fills pages. Most of them are wrong. He knows they're wrong while he's drawing them. He draws them anyway because sometimes the shape of a wrong answer points at the right one.
 
-### The Books
-A shelf. Or a stack. Hayek. Maybe Rothbard. Maybe something about the history of money. One of them is dog-eared at a chapter about what happens when governments control the printing press. He's read it enough times that the spine is cracked.
+### ~2006: The Click
+Something falls into place. Not all at once. A slow rearrangement. What if the ledger isn't held by anyone? What if everyone holds it? What if the cost of lying is energy itself, burned and unrecoverable? He sits with this for days. It can't be this simple. He looks for the flaw. He keeps looking for the flaw. He doesn't find it.
 
-### The Job
-He goes to work. We don't know what the job is. Something with computers, probably. He's competent but not memorable. No one at work knows about the other thing. He prefers it that way.
+### ~2006-2008: The Code
+He writes software. It's not elegant. Functions are too long. Variable names could be better. He's not a great programmer and he knows it. But the code compiles, and it does what it's supposed to do. He tests it obsessively. Simulates attacks against his own system. Tries to break it. When he can't break it, he doesn't feel triumph. He feels suspicious. He tries again.
 
-### The Newspaper
-He's scanning headlines. He's been doing this for days, looking for something specific, though the story doesn't say what. He finds it: "Chancellor on brink of second bailout for banks." He stops. Reads it again. This one.
+### ~Mid 2008: The Name
+He needs a name. Not his name. He will never use his name. He has decided this already, and the decision was not difficult. The work has to stand on its own. If people know who he is, they'll argue about him instead of the idea. They'll come to his door. He picks a name and types it into a registration form. It feels like putting on a mask. Not to hide something shameful, but to protect something fragile.
 
-### The Room That Hums
-The machines are running. It's late, or early. The room is warm from the hardware. He watches a screen. Numbers. A hash. A block. The first one. Something just started, and nobody in the world knows except him.
+### ~August 2008: The Machines
+He buys hardware. More than a hobby would justify. Puts it in a room. The machines hum. He does arithmetic: at this difficulty, with this much hashrate, a block should come every ten minutes. He knows he'll be the only one running the system at first. Maybe for weeks. Maybe months. He's planned for this. The network has to survive with an audience of one.
 
-## Ending
+### October 31, 2008: The Mailing List
+He's written a paper. Nine pages. He's rewritten it many times. The abstract is one paragraph. He reads it one more time. He opens his email client and types a message to a cryptography mailing list. "I've been working on a new electronic cash system that's fully peer-to-peer, with no trusted third party." He reads the sentence back. It says what it needs to say. Nothing more. He checks: did he leave anything personal in the message? A greeting. A sign-off that reveals too much. He removes a line. Sends it. Goes to make tea, or coffee, or whatever he drinks. We don't know.
 
-The last fragment is "The Room That Hums." It's the genesis block, but the word "genesis" never appears. Just a man alone with machines, watching something begin. The room hums. End.
+### November-December 2008: The Replies
+People respond. Some are skeptical. Some are interested. One person has real questions about the timestamp server. He answers precisely, technically, completely. Another person writes "happy holidays" at the end of a message. He ignores that part and answers the technical question.
 
-Or: the very last line is a sentence he types, or a string of text he embeds somewhere. "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks." No context. No explanation. The Bitcoiner erupts. The normal reader Googles.
+### Early January 2009: The Newspaper
+He's been scanning headlines. Not casually. He needs something specific: a timestamp the world will recognize. Something that proves the system didn't start before this date. He needs a headline from today, or close to today, embedded in the first block. He finds it in the business section. He reads it twice. "Chancellor on brink of second bailout for banks." He types it in.
+
+### January 3, 2009: The Room That Hums
+The machines are running. The room is warm. It's late, or early. He watches a screen. Numbers scroll. A hash. A nonce. The difficulty target. The system is looking for a needle in a haystack, exactly as he designed it to. He waits.
+
+A block appears. The first one. Block zero. Inside it, the headline from the newspaper, and a reward of fifty coins that will never be spent.
+
+The room hums. Nobody in the world knows what just happened. He sits with it for a moment. Then he gets up and does something ordinary. We don't know what.
+
+The machines keep running.
+
+## Ending Notes
+
+The last image is the machines. Not him. The system has started. It doesn't need his name. It doesn't need anyone to know. It just needs to keep running.
 
 ## Tone
 
-Each fragment is short (200-500 words). Quiet, sensory, interior. No fragment explains itself. No fragment connects to the others explicitly. The connections are for the reader to make. The mood is solitude. A person working on something enormous, entirely alone, for years.
+Monastic. Solitary. Each fragment is 200-500 words. The prose is spare, sensory, interior. No fragment explains itself to the reader. The intellectual content (Austrian economics, axiom of resistance, proof of work) appears as the texture of a life, not as exposition. The narrator doesn't explain what he's building or why. He just builds.
 
-## Why This Might Work Better Than Draft A
+## Philosophical Core
 
-- The fragments dodge the "one day isn't enough" problem. You get the years of preparation without a chronological slog.
-- Each fragment is a standalone vignette that works on its own. The accumulated effect is the story.
-- The disorder mirrors the way ideas actually form: not linearly, but in pieces that eventually click.
-- The identity withholding is built into the form. Fragments don't have to explain who the narrator is or where or when. The form itself is anonymous.
+The Axiom of Resistance (libbitcoin wiki): Bitcoin assumes, as an unprovable starting premise, that a sufficiently decentralized system can resist state control. The protagonist doesn't argue this. He accepts it, the way a physicist accepts that the speed of light is constant, and builds from there. The entire story is downstream of this one belief.
 
-## Why This Might Be Harder
+Austrian economics is the water he swims in. Hayek's "Denationalisation of Money," the argument that currency competition produces better money than central banks. The narrator has internalized this so deeply that he doesn't think of it as a position. It's just how money works, or should work.
 
-- No narrative momentum. Each fragment resets the reader's engagement.
-- The ending needs to feel like a culmination, but if the fragments are unordered, what makes the last one "last"?
-- Risk of feeling like a prose poem collection rather than a story.
+Technology is the tool. Not for its own sake. Because the political problem (money controlled by states, debased at will, used as a lever of power) cannot be solved politically. You can't vote your way to sound money. You can only build it.
 
-## Easter Eggs
+## Easter Eggs (For Bitcoiners)
 
-Same as Draft A, but distributed across fragments:
-- DigiCash, Hashcash, b-money, Bit Gold (mentioned obliquely, never named explicitly)
-- The email discipline (delete the personal, keep the technical)
-- The spelling alternation
-- The name selection (typing a handle into a field)
-- The hardware preparation and solo mining math
-- The newspaper headline
-- The genesis block as final image
-- The phrase "trusted third party" as recurring motif across fragments
-- He's always alone. Every fragment. No one else is in the room when it matters.
+- The dates: Oct 31, 2008 and Jan 3, 2009
+- "Fully peer-to-peer, with no trusted third party" (direct quote from the mailing list email)
+- "Chancellor on brink of second bailout for banks" (genesis block coinbase)
+- Fifty coins that will never be spent (block reward, Patoshi pattern)
+- The timestamp server discussion (actual early mailing list exchange)
+- The spelling discipline, the deleted greetings, the mask
+- "No throat to choke" (common cypherpunk phrase)
+- The difficulty arithmetic / solo mining preparation
+- The predecessor papers (never named, but recognizable by description)
+- He's always alone. Every fragment.
+
+## What the Normal Reader Gets
+
+A portrait of someone building something in secret, with extraordinary discipline and quiet conviction. A monk of technology. The ending is mysterious: what did he build? The machines keep running. The reader who doesn't know Bitcoin history is left with an atmosphere and a question. The reader who does know is left with a chill.
