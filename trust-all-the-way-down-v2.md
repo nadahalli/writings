@@ -99,11 +99,11 @@ The bootstrappable builds project (bootstrappable.org) starts from a simple prem
 
 That last row represents a 99.999935% reduction in code taken on faith. From half a gigabyte to something shorter than a tweet.
 
-The honest caveat: as of early 2026, the full bootstrap from hex0 is merged into Guix itself, but Guile (the Scheme interpreter orchestrating the build) is still about 25 megabytes of trusted binary. Work to bootstrap Guile is ongoing. Bitcoin Core's current Guix builds start from Guix's present bootstrap set, not directly from hex0. Hardware (Intel ME, AMD PSP, RNG) remains a separate trust surface entirely.
+The honest caveat: as of early 2026, the full bootstrap from hex0 is merged into Guix itself, but Guile (the Scheme interpreter orchestrating the build) is still about 25 megabytes of trusted binary. Work to bootstrap Guile is ongoing with the GNU Mes project and soon, we will have fully bootstrapped Bitcoin binaries. 
 
-But the path is mapped. The hardest parts are done. And no other software project of comparable importance is further along this road. Ethereum's most popular client, Geth, has had open issues requesting reproducible builds since 2018. Unresolved. Solana ran a single client implementation with no reproducible builds until late 2025. 
+No other software project of comparable importance is further along this road. Ethereum's most popular client, Geth, has had open issues requesting reproducible builds since 2018. Unresolved. Solana ran a single client implementation with no reproducible builds until late 2025. 
 
-Traditional finance is entirely closed-source. The question isn't even asked.
+Traditional finance is entirely closed-source. This question isn't even asked.
 
 ---
 
