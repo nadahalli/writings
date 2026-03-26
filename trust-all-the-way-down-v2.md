@@ -46,23 +46,22 @@ Now the self-reproducing part. Suppose ASML's machines could also be used to bui
 
 # This Is Not Theoretical
 
-Thompson's attack was a thought experiment. He never actually deployed it. But the JavaScript ecosystem, which powers most cryptocurrency wallets and web interfaces, has been a live testing ground for exactly this kind of supply chain compromise.
+Thompson's attack was a thought experiment from 1983 - showing the pitfalls of the software supply-chain. He never actually deployed it (or so we are told). But the JavaScript ecosystem, which powers most "crypto" wallets and frontends, has been a live testing ground for exactly this kind of supply chain compromise.
 
 In 2018, a developer named Dominic Tarr handed over maintenance of a popular NPM package called `event-stream` to a volunteer. The volunteer made a few benign commits over five days to build trust, then injected a malicious dependency called `flatmap-stream`. The payload was encrypted and selective: it activated only when it detected it was being built inside BitPay's Copay wallet. It checked Bitcoin and Bitcoin Cash balances, and if the wallet held more than 100 BTC or 1,000 BCH, it harvested the private keys and sent them to a remote server. The attack shipped to end users in Copay versions 5.0.2 through 5.1.0. It went undetected for two months.
 
 In December 2023, a former Ledger employee's NPM account was compromised via a phishing attack that captured their session token, bypassing two-factor authentication. The attacker pushed malicious versions of Ledger's `connect-kit` library. Because wallet frontends loaded this library at runtime from a CDN without pinning a specific version, the malicious code was automatically served to over a hundred decentralized applications, including SushiSwap. For about five hours, anyone clicking "Connect Wallet" on an affected site was shown a fake overlay that, if interacted with, drained their wallet. Roughly $600,000 was stolen before Ledger deployed a fix.
 
-Neither of these was a Thompson-style compiler attack. They were simpler: one exploited trust in a maintainer, the other exploited a stale employee account. But they demonstrate the principle. The code you audit is not always the code that runs. And in crypto, the consequences are immediate and irreversible.
+Neither of these was as sophisticated as Thompson's "Trusting-Trust" attack. These were far simpler: just a library compromise. But they demonstrate the principle. The code you audit is not always the code that runs. And even in crypto, the consequences are immediate and irreversible. In Bitcoin Core, the stakes are even higher.
 
-Bitcoin Core's engineering culture watches these incidents carefully. They are, in a sense, the reason the Guix effort exists.
 
 ---
 
 # Bitcoin Lived With This Problem for a Decade
 
-How does Bitcoin.org compile its binaries? For years, Bitcoin Core used a system called Gitian to produce release binaries. Multiple developers compiled the same source code inside identical virtual machines and compared results. If everyone got the same binary, no single developer had tampered with the output. This is called a *reproducible build*, and it was genuinely better than how most normal software ships (a developer compiles on their laptop, uploads, and you trust them). In this case, we trust the toolchain - but we make sure that a quorum of developers ran the said toolchain on different machines in different physical locations. 
+How does Bitcoin.org compile the core Bitcoin binaries? For years, Bitcoin Core used a system called Gitian to produce release binaries. Multiple developers compiled the same source code inside identical virtual machines and compared results. If everyone got the same binary, no single developer had tampered with the output. This is called a *reproducible build*, and it was genuinely better than how most normal software ships (a developer compiles on their laptop, uploads, and you trust them). In this case, we trust the toolchain - but we make sure that a quorum of developers ran the said toolchain on different machines in different physical locations. But as we saw earlier, toolchain compromise is a thing.
 
-But Gitian relied on Ubuntu Linux: Ubuntu's compiler, linker, and standard libraries. The untrustworthy toolchain, so so speak. The total set of trusted binaries, software that everyone simply assumed was honest, was approximately 550 megabytes. Half a gigabyte of machine code that nobody had audited from scratch, supplied by Canonical, who received it from upstream GNU and Linux projects, who compiled it using previous versions of their own tools, who received those from...
+Gitian relied on Ubuntu Linux: Ubuntu's compiler, linker, and standard libraries. The untrustworthy toolchain, so so speak. The total set of trusted binaries, software that everyone simply assumed was honest, was approximately 550 megabytes. Half a gigabyte of machine code that nobody had audited from scratch, supplied by Canonical, who received it from upstream GNU and Linux projects, who compiled it using previous versions of their own tools, who received those from...
 
 550 megabytes of "just trust us." For a system whose entire reason for existing is to not trust.
 
@@ -70,29 +69,19 @@ But Gitian relied on Ubuntu Linux: Ubuntu's compiler, linker, and standard libra
 
 # From 550 Megabytes to 357 Bytes
 
-In 2019, a Bitcoin Core developer named Carl Dong opened Pull Request #15277 on GitHub. Unassuming title: "contrib: Enable building in Guix containers." But one line in the description stood out:
+In 2019, a Bitcoin Core developer named Carl Dong opened Pull Request [#15277](https://github.com/bitcoin/bitcoin/pull/15277) on GitHub. Unassuming title: "contrib: Enable building in Guix containers." But one line in the description stood out:
 
 > "If OriansJ gets his way, we will end up some day with only a single trusted binary: hex0 (a ~500 byte self-hosting hex assembler)."
 
 Someone was claiming, in a pull request for a trillion-dollar financial system, that someday the entire trust surface could be reduced to 500 hand-assembled bytes.
 
-Guix (pronounced "geeks") is a package manager that, unlike conventional ones, can build every package from source, starting from a defined set of bootstrap binaries. The move from Gitian to Guix took years. Cross-compilation for five architectures plus macOS and Windows, all from a sealed environment with no network access, every dependency explicitly declared. No sneaking in a package at build time.
-
-The conceptual shift mattered more than the technical one. Gitian asked: "Did multiple people get the same result?" Guix asks: "Can we account for every binary in the build chain as well?" It's the difference between checking that five people agree on the answer, and checking that the textbook they all read wasn't wrong.
+Guix (pronounced "geeks") is a package manager that, unlike conventional ones, can build every package from source, starting from a defined set of bootstrap binaries. The move from Gitian to Guix took years. Cross-compilation for five architectures plus macOS and Windows, all from a sealed environment with no network access, every dependency explicitly declared. In Gitian, if you needed a compiler, you just downloaded a 200MB binary of GCC from Ubuntu. In Guix, you are forbidden from using "pre-compiled" binaries. This meant developers had to map out the "ancestry" of every single tool. If you wanted a C++ compiler, you had to define how a 357-byte seed builds an assembler, which builds a C compiler, which eventually builds the C++ compiler. It’s like trying to build a car by first inventing the smelting process for iron. In a normal build, you might have a "hidden" dependency—maybe a library installed on your laptop that the compiler "sees" and uses. Guix blocks this. If you didn't explicitly declare a dependency in the code, the build will fail. For years, the Bitcoin team had to hunt down these "leaks" where the software was accidentally relying on the host operating system.
 
 Bitcoin Core v22.0, released in September 2021, was the first version built with Guix. The trusted binary surface dropped from 550 MB to approximately 120 MB. A 78% reduction in code you have to take on faith. Nobody outside of Bitcoin Core's development community really noticed.
 
 But 120 MB was still 120 MB. Carl Dong's PR pointed toward something more radical.
 
-The bootstrappable builds project (bootstrappable.org) starts from a simple premise: compilers written in their own language create an infinite regression of trust. Their goal is to break the regression by starting from something small enough to audit completely by hand.
-
-They have a nice domestic analogy. To make yogurt, the first step is to add yogurt to milk. Where does the first yogurt come from?
-
-Their answer is hex0. A program, 357 bytes long, written in raw hexadecimal. Each pair of hex characters maps directly to a single processor instruction. No compiler. No abstraction. A human can sit down, read the hex, look up each instruction in the manual, and verify, by hand, that it does one thing: read hex-encoded text and output the corresponding binary.
-
-The yogurt that doesn't require yogurt.
-
-From hex0, the chain proceeds through twenty-eight stages. Each builds a slightly more capable tool using only the tools from previous stages:
+The bootstrappable builds project (bootstrappable.org) starts from a simple premise: compilers written in their own language create an infinite regression of trust. Their goal is to break the regression by starting from something small enough to audit completely by hand. It's called "hex0": a program that is just 357 bytes long, written in raw hexadecimal. Each pair of hex characters maps directly to a single processor instruction. No compiler. No abstraction. A human can sit down, read the hex, look up each instruction in the manual, and verify, by hand, that it does one thing: read hex-encoded text and output the corresponding binary. From hex0, the chain proceeds through twenty-eight stages. Each builds a slightly more capable tool using only the tools from previous stages:
 
 **Stages 0-5: From nothing to C.** hex0 rebuilds itself from its own source (verifying the seed). Labels and jumps. Addresses. A minimal assembler. A rudimentary C compiler. Then M2-Planet, a more capable one. We just went from 357 bytes of hand-verified hex to a working C compiler.
 
@@ -112,18 +101,14 @@ The honest caveat: as of early 2026, the full bootstrap from hex0 is merged into
 
 But the path is mapped. The hardest parts are done. And no other software project of comparable importance is further along this road. Ethereum's most popular client, Geth, has had open issues requesting reproducible builds since 2018. Unresolved. Solana ran a single client implementation with no reproducible builds until late 2025. Traditional finance is entirely closed-source. The question isn't even asked.
 
-Most haven't set foot on this road. Most haven't found the trailhead.
-
 ---
 
 # 357
 
 The engineers doing this work will never be publicly recognized. They're not building features that make headlines. Not launching tokens. Not raising venture capital. They're arguing about linker flags and debating whether 25 megabytes of trusted binary is 25 megabytes too many.
 
-When a nation adds Bitcoin to its reserves, it's trusting the binary. When an institution evaluates Bitcoin's monetary policy (fixed supply, halving schedule, 21 million cap), it's evaluating properties described in the source code. Whether the running software faithfully implements that source code is a separate question. It's the question Guix answers.
+When a nation adds Bitcoin to its reserves, it's implicitly trusting that the people in charge know how to build a binary. When an institution evaluates Bitcoin's monetary policy (fixed supply, halving schedule, 21 million cap), it's evaluating properties described in the source code. Whether the running software faithfully implements that source code is a separate question. A sovereign wealth fund holding Bitcoin without understanding its software supply chain is like a central bank storing gold without assaying it. And in Bitcoin's case, the "assaying machine" is built by a machine that is built by a machien that is eventually hand-built. That's the plan.
 
-A sovereign wealth fund holding Bitcoin without understanding its software supply chain is like a central bank storing gold without assaying it. You might have what you think you have.
-
-Twenty-eight stages. From a seed smaller than a tweet to a financial system for billions. This is what it looks like when the people building a system actually believe it matters.
+Verify.All.The.Way.Down.
 
 357 bytes. That's where it starts.
