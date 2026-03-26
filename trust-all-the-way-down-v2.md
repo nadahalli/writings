@@ -59,9 +59,11 @@ Neither of these was as sophisticated as Thompson's "Trusting-Trust" attack. The
 
 # Bitcoin Lived With This Problem for a Decade
 
-How does Bitcoin.org compile the core Bitcoin binaries? For years, Bitcoin Core used a system called Gitian to produce release binaries. Multiple developers compiled the same source code inside identical virtual machines and compared results. If everyone got the same binary, no single developer had tampered with the output. This is called a *reproducible build*, and it was genuinely better than how most normal software ships (a developer compiles on their laptop, uploads, and you trust them). In this case, we trust the toolchain - but we make sure that a quorum of developers ran the said toolchain on different machines in different physical locations. But as we saw earlier, toolchain compromise is a thing.
+How does Bitcoin.org compile the core Bitcoin binaries? For years, Bitcoin Core used a system called Gitian to produce release binaries. Multiple developers compiled the same source code inside identical virtual machines and compared results. If everyone got the same binary, no single developer had tampered with the output. This is called a *reproducible build*, and it was genuinely better than how most normal software ships (a developer compiles on their laptop, uploads, and you trust them). In this case, we trust the toolchain - but we make sure that a quorum of developers ran the said toolchain on different machines in different physical locations. 
 
-Gitian relied on Ubuntu Linux: Ubuntu's compiler, linker, and standard libraries. The untrustworthy toolchain, so to speak. The total set of trusted binaries, software that everyone simply assumed was honest, was approximately 550 megabytes. Half a gigabyte of machine code that nobody had audited from scratch, supplied by Canonical, who received it from upstream GNU and Linux projects, who compiled it using previous versions of their own tools, who received those from...
+But as we saw earlier, toolchain compromise is a thing.
+
+Gitian relied on Ubuntu Linux: Ubuntu's compiler, linker, and standard libraries. The untrustworthy toolchain, so to speak. The total set of trusted binaries: software that everyone simply assumed was honest, was approximately 550 megabytes. Machine code that nobody had audited from scratch, supplied by Canonical, who received it from upstream GNU and Linux projects, who compiled it using previous versions of their own tools, who received those from...
 
 550 megabytes of "just trust us." For a system whose entire reason for existing is to not trust.
 
@@ -99,7 +101,9 @@ That last row represents a 99.999935% reduction in code taken on faith. From hal
 
 The honest caveat: as of early 2026, the full bootstrap from hex0 is merged into Guix itself, but Guile (the Scheme interpreter orchestrating the build) is still about 25 megabytes of trusted binary. Work to bootstrap Guile is ongoing. Bitcoin Core's current Guix builds start from Guix's present bootstrap set, not directly from hex0. Hardware (Intel ME, AMD PSP, RNG) remains a separate trust surface entirely.
 
-But the path is mapped. The hardest parts are done. And no other software project of comparable importance is further along this road. Ethereum's most popular client, Geth, has had open issues requesting reproducible builds since 2018. Unresolved. Solana ran a single client implementation with no reproducible builds until late 2025. Traditional finance is entirely closed-source. The question isn't even asked.
+But the path is mapped. The hardest parts are done. And no other software project of comparable importance is further along this road. Ethereum's most popular client, Geth, has had open issues requesting reproducible builds since 2018. Unresolved. Solana ran a single client implementation with no reproducible builds until late 2025. 
+
+Traditional finance is entirely closed-source. The question isn't even asked.
 
 ---
 
