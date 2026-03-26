@@ -110,5 +110,3 @@ The engineers doing this work will never be publicly recognized. They're not bui
 When a nation adds Bitcoin to its reserves, it's implicitly trusting that the people in charge know how to build a binary. When an institution evaluates Bitcoin's monetary policy (fixed supply, halving schedule, 21 million cap), it's evaluating properties described in the source code. Whether the running software faithfully implements that source code is a separate question. A sovereign wealth fund holding Bitcoin without understanding its software supply chain is like a central bank storing gold without assaying it. And in Bitcoin's case, the "assaying machine" is built by a machine that is built by a machien that is eventually hand-built. That's the plan.
 
 Verify.All.The.Way.Down.
-
-357 bytes. That's where it starts.
