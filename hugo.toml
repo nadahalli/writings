@@ -1,0 +1,62 @@
+baseURL = "https://tejaswin.com/"
+languageCode = "en-us"
+title = "Tejaswi's blog"
+theme = "PaperMod"
+[pagination]
+  pagerSize = 10
+
+[params]
+  defaultTheme = "dark"
+  ShowReadingTime = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = false
+  ShowCodeCopyButtons = true
+  ShowShareButtons = false
+  ShowToc = false
+  ShowPostCategories = true
+  ShowAllPagesInArchive = true
+
+  [params.cover]
+    hiddenInList = true
+  env = "production"
+  description = "Tejaswi Nadahalli's blog"
+  author = "Tejaswi Nadahalli"
+  disableSpecial1stPost = true
+
+[params.profileMode]
+  enabled = false
+
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 10
+  [[menu.main]]
+    identifier = "archive"
+    name = "Archive"
+    url = "/archives/"
+    weight = 20
+  [[menu.main]]
+    identifier = "categories"
+    name = "Categories"
+    url = "/categories/"
+    weight = 25
+  [[menu.main]]
+    identifier = "search"
+    name = "Search"
+    url = "/search/"
+    weight = 30
+
+[permalinks]
+  posts = "/:year/:month/:day/:slug/"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[markup]
+  [markup.highlight]
+    style = "monokai"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

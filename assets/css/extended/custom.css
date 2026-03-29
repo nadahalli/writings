@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap');
+
+.entry-header h2 {
+  text-decoration: underline;
+}
+
+a,
+.post-entry:first-child a,
+.post-entry a,
+.entry-header h2,
+.nav-links a,
+.footer a,
+#menu a {
+  color: #5b9bd5;
+}
+
+a:hover,
+.post-entry a:hover,
+#menu a:hover {
+  color: #7db8e8;
+}
+
+/* Keep header title white */
+.logo a,
+header .logo a {
+  color: var(--primary);
+}
+
+/* Show categories on post listing */
+.post-entry .entry-footer {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+/* Center all images in posts */
+.post-content img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Match WordPress: Nunito 16px */
+body {
+  font-family: 'Nunito', sans-serif !important;
+  font-size: 16px !important;
+}
+
+.post-content {
+  font-size: 16px !important;
+  line-height: 1.7;
+}
+
+h1 { font-size: 36px; }
+h2 { font-size: 30px; }
+h3 { font-size: 24px; }
