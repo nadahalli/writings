@@ -30,7 +30,9 @@ This is not a theoretical concern. Software supply chain attacks have been aroun
 
 **2026: The LiteLLM Attack.** A few weeks ago, a threat group called TeamPCP [executed a cascading attack](https://www.wiz.io/blog/threes-a-crowd-teampcp-trojanizes-litellm-in-continuation-of-campaign) that went one level deeper. They first compromised Trivy, a widely-used security scanner. When LiteLLM's build pipeline ran the compromised Trivy (the tool that was supposed to *protect* the build), it [exfiltrated LiteLLM's publishing credentials](https://www.sonatype.com/blog/compromised-litellm-pypi-package-delivers-multi-stage-credential-stealer). The attackers then pushed malicious versions of `litellm`, a package with roughly three million daily downloads that is [present in 36% of cloud environments](https://www.wiz.io/blog/threes-a-crowd-teampcp-trojanizes-litellm-in-continuation-of-campaign). The payload harvested API keys, SSH keys, cloud credentials, and cryptocurrency wallets, and installed a persistent backdoor. The packages were live for about three hours before being quarantined. The industry's emerging response is to treat supply chain attacks as the default threat model and not an edge case.
 
-Notice the progression. In 2018, a library was compromised. In 2023, an employee account was compromised. In 2026, the security scanner itself was the attack vector. Each time, the industry adds another layer of checking. Each time, attackers find a way to compromise the checker.
+**2026: The Axios Attack.** On March 31, suspected North Korean state hackers [compromised the NPM account](https://cloud.google.com/blog/topics/threat-intelligence/north-korea-threat-actor-targets-axios-npm-package) of a maintainer of Axios, the most popular JavaScript HTTP library with over [100 million weekly downloads](https://www.helpnetsecurity.com/2026/03/31/axios-npm-backdoored-supply-chain-attack/). They changed the account's email to an attacker-controlled address, then injected a malicious dependency that silently deploys a dropper targeting cryptocurrency wallets. Google [attributed](https://thehackernews.com/2026/04/google-attributes-axios-npm-supply.html) the attack to UNC1069, a North Korean group that funds the regime's nuclear and missile programs with stolen crypto. Axios is used by virtually every JavaScript project on the internet. The industry's response is still unfolding.
+
+Notice the progression. In 2018, a library was compromised by an opportunistic individual. In 2023, an employee account was hijacked through phishing. In early 2026, the security scanner itself was the attack vector. In late March 2026, a nation-state compromised the single most widely used JavaScript library on earth. Each time, the industry adds another layer of checking. Each time, attackers find a way to compromise the checker.
 
 In 1984, Ken Thompson explained why this regression has no bottom.
 
@@ -41,6 +43,8 @@ In 1984, Ken Thompson explained why this regression has no bottom.
 Thompson received the Turing Award, computing's highest honor, for co-creating Unix. His [acceptance lecture](https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf) described an attack that, four decades later, we still have no complete defense against: a compiler that inserts a backdoor into the software it compiles, and also inserts the backdoor-insertion code into any new compiler compiled from clean source code. A "corruption-inserter" is inserted into the binary and can perpetuate forever. You can audit every line of your source code, your supply chain, and the tools used to build your supply chain and still find nothing. 
 
 Thompson's conclusion: "You can't trust code that you did not totally create yourself." He meant it all the way down the toolchain.
+
+What makes this attack devastating is its invisibility. The corruption lives in the compiled binary, not in any source code. Every future version of the compiler, built from perfectly clean source, inherits the corruption from the binary that compiled it. You can read every line of source, hire the best auditors in the world, run every analysis tool available, and find nothing. The backdoor reproduces itself through the act of compilation, generation after generation. It reproduces itself through the act of compilation, living in the space between what humans write and what machines execute.
 
 The Copay, Ledger, and LiteLLM attacks are crude by comparison: they compromise libraries and accounts, not the compiler itself. But they demonstrate the principle at progressively deeper levels. And the industry's standard defenses (dependency auditing, version pinning, credential rotation, security scanning) are all variations of adding another tool to check the previous tool. Thompson showed that this chain of checkers has no natural terminus. Who checks the checker that checks the checker?
 
@@ -66,7 +70,20 @@ Bitcoin Core [v22.0](https://bitcoincore.org/en/releases/22.0/), released in Sep
 
 But 120 MB was still 120 MB. Carl Dong's PR pointed toward something more radical.
 
-The [bootstrappable builds project](https://bootstrappable.org) starts from a simple premise: compilers written in their own language create an infinite regression of trust. Their goal is to break the regression by starting from something small enough to audit completely by hand. Their answer is [hex0](https://bootstrappable.org/projects/mes.html): a program just 357 bytes long, written in raw hexadecimal. Each pair of hex characters maps directly to a single processor instruction. No compiler. No abstraction. A human can sit down, read the hex, look up each instruction in the manual, and verify that it does one thing: read hex-encoded text and output the corresponding binary. From hex0, the chain proceeds through twenty-eight stages, each building a slightly more capable tool using only the tools from previous stages, culminating in a full compiler toolchain that can build Bitcoin Core.
+The [bootstrappable builds project](https://bootstrappable.org) starts from a simple premise: compilers written in their own language create an infinite regression of trust. Their goal is to break the regression by starting from something small enough to audit completely by hand. Their answer is [hex0](https://bootstrappable.org/projects/mes.html): a program just 357 bytes long, written in raw hexadecimal. Each pair of hex characters maps directly to a single processor instruction. No compiler. No abstraction. A human can sit down, read the hex, look up each instruction in the manual, and verify that it does one thing: read hex-encoded text and output the corresponding binary.
+
+From hex0, the chain proceeds through twenty-eight stages. Each stage builds a slightly more capable tool using only the tools from previous stages:
+
+| Stage | What it builds | Significance |
+|---|---|---|
+| 0 | hex0 rebuilds itself | Verifies the 357-byte seed |
+| 1-3 | Assemblers with labels, jumps, addresses | Basic machine code tools |
+| 4-5 | M2-Planet (a C compiler) | From raw hex to a working C compiler |
+| 6-10 | Earlier tools rebuilt in C | Cross-platform support |
+| 11-28 | Shell, utilities, GNU Mes | Full build environment |
+| Final | TinyCC, then vintage GCC, then modern GCC | Can compile Bitcoin Core |
+
+The progression is worth pausing on. Stage 0 starts with 357 bytes that a human verified by hand. By stage 5, those bytes have bootstrapped a working C compiler. By stage 28, you have a complete build environment. From there, TinyCC (a small C compiler) builds a vintage version of GCC from 2001. That vintage GCC builds a modern GCC. And modern GCC builds Bitcoin Core. Every link in the chain is open, deterministic, and reproducible. No binary is taken on faith.
 
 | Era | Trusted binary surface |
 |---|---|
@@ -76,7 +93,9 @@ The [bootstrappable builds project](https://bootstrappable.org) starts from a si
 
 That last row represents a [99.999935% reduction](https://www.reddit.com/r/Bitcoin/comments/smj1ep/bitcoin_v220_and_guix_stronger_defense_against/) in unaudited code. From half a gigabyte to something shorter than a tweet.
 
-The honest caveat: as of early 2026, the full bootstrap from hex0 is merged into Guix itself, but Guile (the Scheme interpreter orchestrating the Guix build process) is still about 25 megabytes of trusted binary. Work to bootstrap Guile is ongoing. Bitcoin Core's current Guix builds start from Guix's present bootstrap set, not directly from hex0. But the path is mapped, and the hardest parts are done.
+The honest caveat: as of early 2026, the full bootstrap from hex0 is merged into Guix itself, but Guile (the Scheme interpreter orchestrating the Guix build process) is still about 25 megabytes of trusted binary. Bitcoin Core's current Guix builds start from Guix's present bootstrap set, not directly from hex0. The 357-byte target is not yet reached.
+
+The remaining hurdles are real. Guile requires a C compiler that supports C99, which means bootstrapping through several intermediate compiler versions. GCC post-4.8 requires C++, and glibc (the core C library) post-2.28 requires Python, each creating new bootstrapping dependencies that must themselves be bootstrapped. These are engineering challenges, not theoretical ones, and the bootstrappable builds community is actively working through them. A reasonable estimate is that the full hex0-to-Bitcoin-Core chain could be complete within a few years. The path is mapped and the hardest parts are done.
 
 ---
 
@@ -109,8 +128,22 @@ A sovereign wealth fund holding Bitcoin without understanding its software suppl
 
 The engineers doing this work are a small group of Bitcoin Core contributors. They will never be publicly recognized. They are not building features that make headlines, launching tokens, or raising venture capital. They are debating whether 25 megabytes of trusted binary is 25 megabytes too many.
 
-While the digital sovereignty debate is omnipresent, a more fundamental question goes unasked: have you verified the integrity of the mission-critical software running in your organization? Bitcoin Core is the only major software project that has taken this question to its logical conclusion. Twenty-eight stages, from a seed smaller than a tweet to a financial system securing over a trillion dollars.
+---
 
-The principle is simple: verify all the way down.
+## What Can We Learn from Bitcoin?
+
+Bitcoin's approach to software integrity is not just relevant to Bitcoin. The LiteLLM attack hit cloud infrastructure. The Copay attack hit financial software. The Ledger attack hit hardware wallet interfaces. Supply chain compromises are not a crypto problem; they are a software problem. Any organization running mission-critical software should be asking the same questions Bitcoin Core asked a decade ago.
+
+Three takeaways:
+
+**1. Reproducible builds should be the minimum standard for critical software.** If two people cannot compile the same source code and get the identical binary, there is no way to verify that the binary matches the source. Most financial, healthcare, and government software does not meet this bar. Bitcoin Core has met it since 2021.
+
+**2. Dependency supply chains are attack surfaces, not just convenience.** Every library, every build tool, every update mechanism is a potential vector. The progression from Copay to LiteLLM shows that attackers are moving deeper into the toolchain with each generation. Pinning versions and auditing dependencies is necessary but not sufficient. Organizations should ask: how many layers of unaudited software sit between our source code and our running binary?
+
+**3. The question "who built this binary?" should be part of institutional due diligence.** For any software that handles money, personal data, or critical infrastructure, the provenance of the binary is as important as the quality of the source code. Bitcoin Core is the only major project that has taken this question to its logical conclusion. The rest of the industry has barely started asking it.
+
+While the digital sovereignty debate is omnipresent, a more fundamental question goes unasked: have you verified the integrity of the mission-critical software running in your organization?
+
+Twenty-eight stages. From a seed smaller than a tweet to a financial system securing over a trillion dollars.
 
 357 bytes. That's where it starts.
