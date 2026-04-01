@@ -44,9 +44,9 @@ Thompson received the Turing Award, computing's highest honor, for co-creating U
 
 Thompson's conclusion: "You can't trust code that you did not totally create yourself." He meant it all the way down the toolchain.
 
-What makes this attack devastating is its invisibility. The corruption lives in the compiled binary, not in any source code. Every future version of the compiler, built from perfectly clean source, inherits the corruption from the binary that compiled it. You can read every line of source, hire the best auditors in the world, run every analysis tool available, and find nothing. The backdoor reproduces itself through the act of compilation, generation after generation. It reproduces itself through the act of compilation, living in the space between what humans write and what machines execute.
+What makes this attack devastating is its invisibility. The corruption lives in the compiled binary, not in any source code. Every future version of the compiler, built from perfectly clean source, inherits the corruption from the binary that compiled it. The "corruption-inserter" reproduces itself through the act of compilation, living in the space between what humans write and what machines execute. 
 
-The Copay, Ledger, and LiteLLM attacks are crude by comparison: they compromise libraries and accounts, not the compiler itself. But they demonstrate the principle at progressively deeper levels. And the industry's standard defenses (dependency auditing, version pinning, credential rotation, security scanning) are all variations of adding another tool to check the previous tool. Thompson showed that this chain of checkers has no natural terminus. Who checks the checker that checks the checker?
+The Copay, Ledger, LiteLLM, and Axios attacks are crude by comparison: they compromise libraries and accounts, not the compiler itself. But they demonstrate the principle at progressively deeper levels. And the industry's standard defenses (dependency auditing, version pinning, credential rotation, security scanning) are all variations of adding another tool to check the previous tool. Thompson showed that this chain of checkers has no natural terminus. Who checks the checker that checks the checker?
 
 Bitcoin Core's answer: you build the checker from scratch, starting from something small enough for a human to verify by hand.
 
@@ -122,17 +122,13 @@ Bitcoin Core's Guix builds don't just add more locks. They rebuild the wall from
 
 ## What This Means for Institutions
 
-When an institution evaluates Bitcoin's monetary policy (fixed supply, halving schedule, 21 million cap), it is evaluating properties described in the source code. Whether the running software faithfully implements that source code is a separate question entirely. It is the question that Guix and bootstrappable builds are designed to answer.
-
-A sovereign wealth fund holding Bitcoin without understanding its software supply chain is like a central bank storing gold without assaying it. You might have what you think you have. You haven't verified it.
-
-The engineers doing this work are a small group of Bitcoin Core contributors. They will never be publicly recognized. They are not building features that make headlines, launching tokens, or raising venture capital. They are debating whether 25 megabytes of trusted binary is 25 megabytes too many.
+"Digital Money" is not an ethereal thing that exists in vacuum. Everything digital is eventually data and software to read and interpret the data. With a "Digital Bearer Asset" like Bitcoin, where transaction finality is established only by software and there is no other legal recourse, that software better be bulletproof. Even if the software is 100% correct, its compiled version is always opaque.  A sovereign wealth fund accepting Bitcoin using "standard software" without understanding its software supply chain is like a central bank storing gold without assaying it. And such a central bank would not buy their assaying machine from an opaque supply chain that might be compromised. Bitcoin is doing the same, but in the realm of software. The "assaying guarantees" are given by the Bitcoin binary, and the binary is guaranteed by the source code and the toolchain that built it in the most transparent way possible, thereby reducing software supply chain attack risks to the minimum. And hopefully, zero in the near future.
 
 ---
 
 ## What Can We Learn from Bitcoin?
 
-Bitcoin's approach to software integrity is not just relevant to Bitcoin. The LiteLLM attack hit cloud infrastructure. The Copay attack hit financial software. The Ledger attack hit hardware wallet interfaces. Supply chain compromises are not a crypto problem; they are a software problem. Any organization running mission-critical software should be asking the same questions Bitcoin Core asked a decade ago.
+Bitcoin's approach to software integrity is not just relevant to Bitcoin. The LiteLLM attack hit cloud infrastructure. The Copay attack hit financial software. The Ledger attack hit hardware wallet interfaces. The Axios attack's blast radius is too huge to write a flippant quip about it. Software supply chain compromises are not a crypto problem; they are a software problem. Any organization running mission-critical software should be asking the same questions Bitcoin Core asked a decade ago.
 
 Three takeaways:
 
@@ -140,10 +136,8 @@ Three takeaways:
 
 **2. Dependency supply chains are attack surfaces, not just convenience.** Every library, every build tool, every update mechanism is a potential vector. The progression from Copay to LiteLLM shows that attackers are moving deeper into the toolchain with each generation. Pinning versions and auditing dependencies is necessary but not sufficient. Organizations should ask: how many layers of unaudited software sit between our source code and our running binary?
 
-**3. The question "who built this binary?" should be part of institutional due diligence.** For any software that handles money, personal data, or critical infrastructure, the provenance of the binary is as important as the quality of the source code. Bitcoin Core is the only major project that has taken this question to its logical conclusion. The rest of the industry has barely started asking it.
+**3. The question "who built this binary?" should be part of institutional due diligence.** For any software that handles money, personal data, or critical infrastructure, the provenance of the binary is as important as the quality of the source code. Bitcoin Core is the only major project that has taken this question to its logical conclusion. The rest of the industry has barely started asking it - understandably so, as it's the hardest of the three questions. 
 
 While the digital sovereignty debate is omnipresent, a more fundamental question goes unasked: have you verified the integrity of the mission-critical software running in your organization?
-
-Twenty-eight stages. From a seed smaller than a tweet to a financial system securing over a trillion dollars.
 
 357 bytes. That's where it starts.
