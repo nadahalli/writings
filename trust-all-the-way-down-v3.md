@@ -4,7 +4,7 @@ When a sovereign wealth fund buys gold, it assays the bars. An independent lab d
 
 When a nation adds Bitcoin to its reserves, what is it assaying?
 
-Not the blockchain. The blockchain is a data structure, inert without software to interpret it. What the nation is actually trusting is the the software they run. In technical terms, they are trusting the *binary*: the compiled software running on its servers (or its custodian's servers). And the integrity of that binary depends on the integrity of every tool that participated in producing it, starting all the way from the human readable source-code. 
+Not the blockchain. The blockchain is a data structure, inert without software to interpret it. What the nation is actually trusting is the software they run. In technical terms, they are trusting the *binary*: the compiled software running on its servers (or its custodian's servers). And the integrity of that binary depends on the integrity of every tool that participated in producing it, starting all the way from the human-readable source code. 
 
 ---
 
@@ -122,7 +122,7 @@ Bitcoin Core's Guix builds don't just add more locks. They rebuild the wall from
 
 ## What This Means for Institutions
 
-"Digital Money" is not an ethereal thing that exists in vacuum. Everything digital is eventually data and software to read and interpret the data. With a "Digital Bearer Asset" like Bitcoin, where transaction finality is established only by software and there is no other legal recourse, that software better be bulletproof. Even if the software is 100% correct, its compiled version is always opaque.  A sovereign wealth fund accepting Bitcoin using "standard software" without understanding its software supply chain is like a central bank storing gold without assaying it. And such a central bank would not buy their assaying machine from an opaque supply chain that might be compromised. Bitcoin is doing the same, but in the realm of software. The "assaying guarantees" are given by the Bitcoin binary, and the binary is guaranteed by the source code and the toolchain that built it in the most transparent way possible, thereby reducing software supply chain attack risks to the minimum. And hopefully, zero in the near future.
+"Digital Money" is not an ethereal thing that exists in a vacuum. Everything digital is eventually data and software to read and interpret the data. With a "Digital Bearer Asset" like Bitcoin, where transaction finality is established only by software and there is no other legal recourse, the integrity of that software is not a nice-to-have; it is the foundation. Even if the source code is 100% correct, its compiled version is always opaque. A sovereign wealth fund accepting Bitcoin using "standard software" without understanding its software supply chain is like a central bank storing gold without assaying it. And such a central bank would not buy their assaying machine from an opaque supply chain that might be compromised. Bitcoin is doing the same, but in the realm of software. The "assaying guarantees" are given by the Bitcoin binary, and the binary is guaranteed by the source code and the toolchain that built it in the most transparent way possible, thereby reducing software supply chain attack risks to the minimum. And hopefully, zero in the near future.
 
 ---
 
@@ -136,7 +136,7 @@ Three takeaways:
 
 **2. Dependency supply chains are attack surfaces, not just convenience.** Every library, every build tool, every update mechanism is a potential vector. The progression from Copay to LiteLLM shows that attackers are moving deeper into the toolchain with each generation. Pinning versions and auditing dependencies is necessary but not sufficient. Organizations should ask: how many layers of unaudited software sit between our source code and our running binary?
 
-**3. The question "who built this binary?" should be part of institutional due diligence.** For any software that handles money, personal data, or critical infrastructure, the provenance of the binary is as important as the quality of the source code. Bitcoin Core is the only major project that has taken this question to its logical conclusion. The rest of the industry has barely started asking it - understandably so, as it's the hardest of the three questions. 
+**3. The question "who built this binary?" should be part of institutional due diligence.** For any software that handles money, personal data, or critical infrastructure, the provenance of the binary is as important as the quality of the source code. Bitcoin Core is the only major project that has taken this question to its logical conclusion. The rest of the industry has barely started asking it. Understandably so; it is the hardest of the three questions. 
 
 While the digital sovereignty debate is omnipresent, a more fundamental question goes unasked: have you verified the integrity of the mission-critical software running in your organization?
 
