@@ -6,7 +6,7 @@ An unasked question is - do we trust the assaying machines? Where do they come f
 
 When a nation adds Bitcoin to its reserves, what is it assaying?
 
-Not the blockchain. The blockchain is just raw data, inert without software to interpret it. Digitally signed transactions are the same, just blobs of data. What the nation is actually trusting is the software they run. In technical terms, they are trusting the *binary*: the compiled software running on its servers (or its custodian's servers). And the integrity of that binary depends on the integrity of every tool that participated in producing it, starting all the way from the human-readable source code. Unlike gold, Bitcoin's "assaying machine" is open source software, where the software supply chain is impossible to hide.
+Not the blockchain. The blockchain is just raw data, inert without software to interpret it. Digitally signed transactions are the same, just blobs of data. What the nation is actually trusting is the software they run. In technical terms, they are trusting the *binary*: the compiled software running on its servers (or its custodian's servers). And the integrity of that binary depends on the integrity of every tool that participated in producing it, starting all the way from the human-readable source code. Unlike gold, Bitcoin's "assaying machine" is open source software, where the software supply chain is impossible to hide. Therefore, possible to compromise.
 
 ---
 
