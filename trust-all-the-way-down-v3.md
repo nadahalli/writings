@@ -1,10 +1,10 @@
 # 357 Bytes of Certainty: Bitcoin's Quiet Revolution in Software Integrity
 
-When a sovereign wealth fund buys gold, it assays the bars. An independent lab drills into the metal, tests its composition, and certifies that what the fund paid for is what it received. No serious institution would skip this step. The gold might look right, weigh right, and come from a reputable dealer. But trust is not verification, and the difference matters when billions are at stake. 
+When a sovereign wealth fund buys gold, it assays the bars. No serious institution would skip this step. The gold might look right, weigh right, and come from a reputable dealer. But trust is not verification, and the difference matters when billions are at stake. Assaying is not simple. There are destructive and non-destructive ways of assaying gold. X-Ray Fluorescence (XRF) and ultrasonic testing do it quickly to see if there are other heavy metals like tungsten inside. But the gold standard of testing gold is the "Fire Assay", a destructive 3,000-year-old process where a small sample of the gold is melted with lead and silver to chemically separate every trace of impurity, leaving only a pure bead of gold. An unasked question is - do we trust the assaying machines? Where do they come from? Most institutions and central banks do not disclose their assaying "supply-chain", given the high stakes involved. 
 
 When a nation adds Bitcoin to its reserves, what is it assaying?
 
-Not the blockchain. The blockchain is a data structure, inert without software to interpret it. What the nation is actually trusting is the software they run. In technical terms, they are trusting the *binary*: the compiled software running on its servers (or its custodian's servers). And the integrity of that binary depends on the integrity of every tool that participated in producing it, starting all the way from the human-readable source code. 
+Not the blockchain. The blockchain is just raw data, inert without software to interpret it. Digitally signed transactions are the same, just blobs of data. What the nation is actually trusting is the software they run. In technical terms, they are trusting the *binary*: the compiled software running on its servers (or its custodian's servers). And the integrity of that binary depends on the integrity of every tool that participated in producing it, starting all the way from the human-readable source code. Unlike gold, Bitcoin's "assaying machine" is open source software, where the software supply chain is impossible to hide.
 
 ---
 
