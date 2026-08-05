@@ -22,6 +22,8 @@ Can we trust that compiler not to add a Trojan horse into the Bitcoin binary? Fo
 
 Trust is a tricky thing, and sometimes, it’s turtles all the way down – and turtles come in all shapes: libraries, compilers, hardware, network routers, random number generators, cryptographic magic numbers, cryptographic assumptions, and on and on and on…..
 
+_Update, August 2026: I wrote a follow-up, [357 Bytes of Certainty](<https://tejaswin.com/2026/08/05/357-bytes-of-certainty/>), on how Bitcoin Core has been shrinking that stack of turtles: from 550 megabytes of trusted binaries down to a 357-byte hex assembler._
+
 References[+]
 
 References ↑1 | Well, if someone is paranoid enough to do that – there is a new Bitcoin implementation called [Mako](<https://github.com/chjj/mako>) that is implemented in pure C with no external dependencies, which can be compiled to a Bitcoin binary that perhaps has no Trojan horses. Or so we hope.  

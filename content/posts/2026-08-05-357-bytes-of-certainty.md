@@ -59,6 +59,8 @@ What makes this attack devastating is its invisibility. The corruption lives in 
 
 The Copay, Ledger, LiteLLM, and Axios attacks are crude by comparison: they compromise libraries and accounts, not the compiler itself. But they demonstrate the principle at progressively deeper levels. And the industry's standard defenses (dependency auditing, version pinning, credential rotation, security scanning) are all variations of adding another tool to check the previous tool. Thompson showed that this chain of checkers has no natural terminus. Who checks the checker that checks the checker?
 
+In [Trusting Trust](<https://tejaswin.com/2021/11/29/trusting-trust/>), I asked who would be paranoid enough to write a C compiler from scratch in assembly just to escape this regression. It turns out somebody does.
+
 Bitcoin Core's answer: you build the checker from scratch, starting from something small enough for a human to verify by hand.
 
 ---
