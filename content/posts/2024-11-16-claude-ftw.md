@@ -12,7 +12,7 @@ I am fairly skeptical of AI-based chatbots. I have seen them hallucinate a non-e
 
 And then this happened.
 
-I was discussing the 8-queens problem with my sons (place 8 queens on a regular chess board so that no 2 queens attach each other) and I wanted to quickly generate a few solutions to show it to them. 
+I was discussing the 8-queens problem with my sons (place 8 queens on a regular chess board so that no 2 queens attack each other) and I wanted to quickly generate a few solutions to show it to them. 
 
 I wrote a quick and dirty Python program that has two functions. One to generate random solutions (generator), and one to verify whether a given solution is correct or not. The generator happened to have an implicit optimization where on each row of the chess board, it places only one queen. This is just how I happened to program it – without consciously thinking that this was an optimization. So, technically, I was not generating random solutions from the larger space of 64 \choose 8 of total solutions – but instead, from the much smaller space of 8^8 solutions. Note this – it will become relevant later.
 
